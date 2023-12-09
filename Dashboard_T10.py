@@ -281,37 +281,38 @@ elif selected_chart == "HMB-Treemap":
 
 # Assuming df_total_vitimas_femininas is your DataFrame containing the data
 
-# Convert the 'Ano' column to integer
-df_total_vitimas_femininas['Ano'] = df_total_vitimas_femininas['Ano'].astype(int)
+elif selected_chart == "HMB- Gráfico de Linhas":   
+    # Convert the 'Ano' column to integer
+    df_total_vitimas_femininas['Ano'] = df_total_vitimas_femininas['Ano'].astype(int)
 
-st.markdown("<h4 style='text-align: center;'>Homicídios de Mulheres no Brasil : 2019-2022</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center;'>Homicídios de Mulheres no Brasil : 2019-2022</h4>", unsafe_allow_html=True)
 
-#st.write("Selecione os estados abaixo:")
+    #st.write("Selecione os estados abaixo:")
 
-# Dropdown for state selection
-selected_states = st.multiselect(
-    "Selecione os estados:",
-    options=df_total_vitimas_femininas['UF'].unique(),
-    default=['SP', 'RJ']
-)
+    # Dropdown for state selection
+    selected_states = st.multiselect(
+        "Selecione os estados:",
+        options=df_total_vitimas_femininas['UF'].unique(),
+        default=['SP', 'RJ']
+    )
 
-# Filter the DataFrame based on selected states
-df_filtered = df_total_vitimas_femininas[df_total_vitimas_femininas['UF'].isin(selected_states)]
+    # Filter the DataFrame based on selected states
+    df_filtered = df_total_vitimas_femininas[df_total_vitimas_femininas['UF'].isin(selected_states)]
 
-# Plotting with Plotly
-fig = px.line(
-    df_filtered, 
-    x='Ano', 
-    y='Vítimas', 
-    color='UF', 
-    markers=True,
-    labels={'Vítimas': 'Número de Vítimas'}
-)
+    # Plotting with Plotly
+    fig = px.line(
+        df_filtered, 
+        x='Ano', 
+        y='Vítimas', 
+        color='UF', 
+        markers=True,
+        labels={'Vítimas': 'Número de Vítimas'}
+    )
 
-# Adjusting x-axis to show only integer years
-fig.update_xaxes(
-    tickmode='array', 
-    tickvals=[2019, 2020, 2021, 2022]
-)
+    # Adjusting x-axis to show only integer years
+    fig.update_xaxes(
+        tickmode='array', 
+        tickvals=[2019, 2020, 2021, 2022]
+    )
 
-st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
